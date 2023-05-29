@@ -1,0 +1,19 @@
+@startuml
+!include https://raw.githubusercontent.com/adrianvlupu/C4-PlantUML/latest/C4_Component.puml
+
+Container(api, "API", "Java e Spring MVC", "API responsável por se comunicar com o core da aplicação.")
+
+Container_Boundary(spa, "Single Page Application") {
+    Component(crotas, "Controlador de Rotas",  "Responsavel pelas rotas no lado do cliente.")
+    Component(armestado, "Armazenagem de Dados do Estado da Aplicação", "O objeto central que contém o estado da aplicação.")
+    Component(login, "Página de Login", "Página de login inicial.")
+    Component(perfil, "Página do Perfil", "Página principal do perfil onde poderá ver e editar suas informações.")
+}
+
+Rel(spa, api, "Usa")
+
+Rel(login, armestado, "Usa");
+Rel(crotas, armestado, "Usa");
+Rel(perfil, armestado, "Usa");
+
+@enduml

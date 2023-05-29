@@ -1,0 +1,23 @@
+@startuml
+!include https://raw.githubusercontent.com/adrianvlupu/C4-PlantUML/latest/C4_Component.puml
+
+Container(spa, "Single Page Application", "Javascript e React", "Fornece todas as funcionalidades da rede social em um browser via internet.")
+Container(am, "Aplicativo Móvel", "Kotlin", "Versão móvel da rede social")
+Container(bd, "Banco de Dados", "Banco de Dados Relacional", "Guarda todas as informações do usuário.")
+System(msb, "Core Sistema Bantch", "Guarda todas as informações dos usuários, como dados e postagens.")
+
+Container_Boundary(api, "API") {
+    Component(clog, "Controlador de Login", "Permite usuários fazerem login na rede social.")
+    Component(ccon, "Controlador Conta Pessoal", "Fornece resumo da sua conta pessoal e suas informações.")
+    Component(cseg, "Controlador Segurança da Rede Social", "Fornece a segurança da rede social, e é responsável por locais de login, troca de senhas, atividades suspeitas e etc.")
+    Component(cpost, "Controlador de Postagens do Usuário", "Fornece o serviço de postagem")
+    Rel(clog, cseg, "Usa")
+    Rel(cseg, bd, "Lê e grava no banco")
+}
+
+Rel(spa, clog, "Usa")
+Rel(spa, ccon, "Usa")
+Rel(am, clog, "Usa")
+Rel(ccon, cpost, "Usa")
+Rel(am, ccon, "Usa")
+@enduml

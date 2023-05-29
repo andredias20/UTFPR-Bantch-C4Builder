@@ -1,0 +1,27 @@
+@startuml
+!include https://raw.githubusercontent.com/adrianvlupu/C4-PlantUML/latest/C4_Container.puml
+
+Person(ubnt, "Usuário da Rede Social Bantch", "Um usuário da rede social, com uma conta e suas informações pessoais vinculadas.")
+System(sp, "Sistema de Postagem", "Sistema interno da Rede Social que gerencia as postagens.")
+System(msb, "Core Sistema Bantch", "Guarda todas as informações dos usuários, como dados e postagens.")
+
+System_Boundary(ecob, "Ecossistema Bantch") {
+    Container(aw, "Aplicação Web", "Java e Spring MVC", "Entrega conteúdo estático e o SPA do ecossistema Bantch.")
+    Container(spa, "Single Page Application", "Javascript e React", "Fornece todas as funcionalidades da rede social em um browser via internet.")
+    Container(am, "Aplicativo Móvel", "Kotlin", "Versão móvel da rede social.")
+    Container(bd, "Banco de Dados", "Banco de Dados Relacional", "Guarda todas as informações do usuário.")
+    Container(api, "API", "Java e Spring MVC", "API responsável por se comunicar com o core da aplicação.")
+
+    Rel(api, sp, "Realiza o envio das postagens")
+    Rel(api, msb, "Usa")
+    Rel(api, bd, "Lê e grava no banco")
+    Rel(aw, spa, "Entrega")
+    Rel(spa, api, "Usa")
+    Rel(am, api, "Usa")
+}
+
+Rel(ubnt, aw, "Usa")
+Rel(ubnt, spa, "Usa")
+Rel(ubnt, am, "Usa")
+Rel(sp, ubnt, "Realiza a postagem")
+@enduml

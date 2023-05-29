@@ -1,0 +1,12 @@
+@startuml
+!include https://raw.githubusercontent.com/adrianvlupu/C4-PlantUML/latest/C4_Context.puml
+
+Person(ubnt, "Usuário da Rede Social Bantch", "Um usuário da rede social, com uma conta e suas informações pessoais vinculadas.")
+System(ecob, "Ecossistema Bantch", "Permite o usuário ver e editar seu perfil, postar fotos, vídeos e fazer posts.")
+System(sp, "Sistema de Postagem", "Sistema interno da Rede Social que gerencia as postagens.")
+System(msb, "Core Sistema Bantch", "Guarda todas as informações dos usuários, como dados e postagens.")
+
+Rel(ubnt, ecob, "Usa")
+Rel(ecob, sp, "Envia a postagem")
+Rel(ecob, msb, "Usa")
+@enduml
