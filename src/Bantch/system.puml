@@ -6,7 +6,6 @@ System(sp, "Sistema de Postagem", "Sistema interno da Rede Social que gerencia a
 System(msb, "Core Sistema Bantch", "Guarda todas as informações dos usuários, como dados e postagens.")
 
 System_Boundary(ecob, "Ecossistema Bantch") {
-    Container(aw, "Aplicação Web", "Java e Spring MVC", "Entrega conteúdo estático e o SPA do ecossistema Bantch.")
     Container(spa, "Single Page Application", "Javascript e React", "Fornece todas as funcionalidades da rede social em um browser via internet.")
     Container(am, "Aplicativo Móvel", "Kotlin", "Versão móvel da rede social.")
     Container(bd, "Banco de Dados", "Banco de Dados Relacional", "Guarda todas as informações do usuário.")
@@ -15,12 +14,10 @@ System_Boundary(ecob, "Ecossistema Bantch") {
     Rel(api, sp, "Realiza o envio das postagens")
     Rel(api, msb, "Usa")
     Rel(api, bd, "Lê e grava no banco")
-    Rel(aw, spa, "Entrega")
     Rel(spa, api, "Usa")
     Rel(am, api, "Usa")
 }
 
-Rel(ubnt, aw, "Usa")
 Rel(ubnt, spa, "Usa")
 Rel(ubnt, am, "Usa")
 Rel(sp, ubnt, "Realiza a postagem")
